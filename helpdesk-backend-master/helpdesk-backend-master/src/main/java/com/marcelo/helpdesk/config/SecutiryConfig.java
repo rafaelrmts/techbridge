@@ -55,7 +55,8 @@ public class SecutiryConfig extends WebSecurityConfigurerAdapter {
           .addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil))
           .addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService))
           .authorizeRequests(auth -> auth
-              .antMatchers(PUBLIC_MATCHERS).permitAll()
+		  	  .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+              .antMatchers(PUBLIC_MATCHERS).permitAll()		  
               .anyRequest().authenticated()
           )
           .sessionManagement(sm -> sm
